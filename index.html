@@ -2,10 +2,14 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#6366F1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ST8 Ecosystem">
 <title>ST8 Ecosystem | Премиум платформа AI для бизнеса</title>
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%236366F1' width='192' height='192'/><text x='96' y='110' font-size='80' font-weight='900' text-anchor='middle' fill='%23fff' font-family='Inter'>ST8</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -44,7 +48,6 @@ body {
   transition: all 0.3s;
 }
 
-/* HEADER STICKY */
 header {
   position: sticky;
   top: 0;
@@ -84,7 +87,6 @@ body.light-mode header {
 
 .theme-toggle:hover { background: var(--surface3); }
 
-/* CONTAINER */
 .container { 
   max-width: 1400px; 
   margin: 0 auto; 
@@ -93,7 +95,6 @@ body.light-mode header {
   width: 100%;
 }
 
-/* HERO SECTION - АНИМИРОВАННЫЙ */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -210,7 +211,6 @@ body.light-mode header {
   transform: translateY(-2px);
 }
 
-/* STATS */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -236,7 +236,6 @@ body.light-mode header {
   font-size: 0.95rem;
 }
 
-/* CAROUSEL - ПРИЛОЖЕНИЯ */
 .carousel-section {
   padding: 6rem 0;
   background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
@@ -260,7 +259,7 @@ body.light-mode header {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 .app-card {
@@ -333,7 +332,17 @@ body.light-mode header {
 
 .app-card-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
 
-/* PRICING */
+.made-by {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.made-by strong { color: var(--accent); }
+
 .pricing-section {
   padding: 6rem 0;
   background: var(--bg);
@@ -422,7 +431,6 @@ body.light-mode header {
 
 .plan-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
 
-/* FEATURES GRID */
 .features-section {
   padding: 6rem 0;
   background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
@@ -454,7 +462,6 @@ body.light-mode header {
 
 .feature-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
 
-/* NEWSLETTER */
 .newsletter-section {
   padding: 4rem 2rem;
   background: linear-gradient(135deg, var(--surface), var(--surface2));
@@ -502,7 +509,6 @@ body.light-mode header {
 
 .newsletter-form button:hover { filter: brightness(1.1); }
 
-/* FOOTER */
 footer {
   text-align: center;
   padding: 3rem 1rem;
@@ -514,7 +520,6 @@ footer a { color: var(--accent); text-decoration: none; }
 
 footer a:hover { text-decoration: underline; }
 
-/* MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -548,7 +553,6 @@ footer a:hover { text-decoration: underline; }
 
 .modal-close:hover { color: var(--text); }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
   header { flex-direction: column; gap: 1rem; }
   .hero { min-height: 80vh; padding: 2rem 1rem; }
@@ -559,7 +563,6 @@ footer a:hover { text-decoration: underline; }
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo"><span>ST8</span> Ecosystem</div>
   <div class="header-right">
@@ -567,7 +570,6 @@ footer a:hover { text-decoration: underline; }
   </div>
 </header>
 
-<!-- HERO SECTION -->
 <section class="hero">
   <div class="container">
     <div class="hero-content">
@@ -603,15 +605,13 @@ footer a:hover { text-decoration: underline; }
   </div>
 </section>
 
-<!-- CAROUSEL ПРИЛОЖЕНИЙ -->
 <section class="carousel-section" id="apps">
   <div class="container">
     <h2 class="section-title">🚀 Наши приложения</h2>
     <p class="section-desc">Выберите что нужно вашему бизнесу</p>
     
     <div class="carousel">
-      <!-- RESTO -->
-      <div class="app-card" onclick="goTo('/resto/')">
+      <div class="app-card" onclick="goTo('resto/')">
         <div class="app-icon">🍽️</div>
         <h3>ST8 RESTO</h3>
         <p>AI технолог для ресторана, кафе, пекарни и корпоративного питания</p>
@@ -622,10 +622,10 @@ footer a:hover { text-decoration: underline; }
           <li>AI отчёты</li>
         </ul>
         <button class="app-card-btn">Открыть →</button>
+        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
       </div>
 
-      <!-- UNIKFOOD -->
-      <div class="app-card" onclick="goTo('/resto/unikfood.html')" style="border-color: var(--lime);">
+      <div class="app-card" onclick="goTo('resto/unikfood.html')" style="border-color: var(--lime);">
         <div class="app-icon">🟢</div>
         <h3 style="color: var(--lime);">Unikfood</h3>
         <p>Система для сетей и производства пищевых продуктов</p>
@@ -636,10 +636,10 @@ footer a:hover { text-decoration: underline; }
           <li>Контроль качества</li>
         </ul>
         <button class="app-card-btn" style="background: var(--lime); color: #0a0a0a;">Открыть →</button>
+        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
       </div>
 
-      <!-- СТРОЙ -->
-      <div class="app-card" onclick="goTo('/stroy/')">
+      <div class="app-card" onclick="goTo('stroy/')">
         <div class="app-icon">🏗️</div>
         <h3>СТ8 СТРОЙ</h3>
         <p>AI помощник прораба для управления строительством</p>
@@ -650,19 +650,18 @@ footer a:hover { text-decoration: underline; }
           <li>Безопасность</li>
         </ul>
         <button class="app-card-btn">Открыть →</button>
+        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div class="container">
     <h2 class="section-title">💰 Тарифные планы</h2>
     <p class="section-desc">Выберите план, который подходит вашему бизнесу</p>
     
     <div class="pricing-grid">
-      <!-- FREE -->
       <div class="pricing-card">
         <div class="plan-name">🎁 Free</div>
         <div class="plan-price">0<span> ₽</span></div>
@@ -674,9 +673,9 @@ footer a:hover { text-decoration: underline; }
           <li>Базовая поддержка</li>
         </ul>
         <button class="plan-btn">Начать</button>
+        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
       </div>
 
-      <!-- PRO -->
       <div class="pricing-card featured">
         <div class="plan-name">⭐ Pro</div>
         <div class="plan-price">4 900<span> ₽/мес</span></div>
@@ -690,9 +689,9 @@ footer a:hover { text-decoration: underline; }
           <li>30+ шаблонов</li>
         </ul>
         <button class="plan-btn">Выбрать план</button>
+        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
       </div>
 
-      <!-- ENTERPRISE -->
       <div class="pricing-card">
         <div class="plan-name">🏢 Enterprise</div>
         <div class="plan-price">от 29 900<span> ₽/мес</span></div>
@@ -706,6 +705,7 @@ footer a:hover { text-decoration: underline; }
           <li>Белый лейбл</li>
         </ul>
         <button class="plan-btn">Написать нам</button>
+        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
       </div>
     </div>
 
@@ -715,7 +715,6 @@ footer a:hover { text-decoration: underline; }
   </div>
 </section>
 
-<!-- FEATURES -->
 <section class="features-section">
   <div class="container">
     <h2 class="section-title">✨ Общие возможности</h2>
@@ -764,7 +763,6 @@ footer a:hover { text-decoration: underline; }
   </div>
 </section>
 
-<!-- NEWSLETTER -->
 <div class="container">
   <div class="newsletter-section">
     <h3>📧 Будьте в курсе новостей</h3>
@@ -776,21 +774,19 @@ footer a:hover { text-decoration: underline; }
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <p style="margin-bottom: 1rem;">
     <strong>ST8 Ecosystem</strong> © 2026 | Сделано <strong>ST8 AI</strong>
   </p>
   <p>
-    <a href="https://st8.ai" target="_blank">🌐 st8.ai</a> | 
-    <a href="https://st8.ai" target="_blank">📧 hello@st8.ai</a>
+    <a href="https://st8-ai.ru" target="_blank">🌐 st8-ai.ru</a> | 
+    <a href="mailto:hello@st8-ai.ru">📧 hello@st8-ai.ru</a>
   </p>
   <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
-    Powered by Anthropic Claude | Индиго #6366F1
+    Powered by Anthropic Claude | Индиго #6366F1 | <strong>Сделано ST8 AI © 2026</strong>
   </p>
 </footer>
 
-<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="modal-close" onclick="closeModal()">✕</span>
@@ -800,7 +796,6 @@ footer a:hover { text-decoration: underline; }
 </div>
 
 <script>
-// THEME TOGGLE
 function toggleTheme() {
   document.body.classList.toggle('light-mode');
   const isDark = !document.body.classList.contains('light-mode');
@@ -814,13 +809,11 @@ function updateThemeButton() {
   btn.textContent = isDark ? '☀️' : '🌙';
 }
 
-// Load theme
 if (localStorage.getItem('st8-theme') === 'light') {
   document.body.classList.add('light-mode');
 }
 updateThemeButton();
 
-// MODAL
 function showFeature(title, text) {
   document.getElementById('modal-title').textContent = title;
   document.getElementById('modal-text').innerHTML = '<p style="font-size: 1rem; line-height: 1.6; color: var(--text);">' + text + '</p>';
@@ -835,7 +828,6 @@ document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
-// NAVIGATION
 function goTo(path) {
   window.location.href = path;
 }
@@ -844,7 +836,6 @@ function scrollTo(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
-// NEWSLETTER
 function subscribe() {
   const email = document.getElementById('email').value;
   if (email) {
