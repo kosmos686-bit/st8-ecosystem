@@ -6,10 +6,10 @@
 <meta name="theme-color" content="#00d9ff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>ST8 Ecosystem | AI Platform for Business</title>
+<title>ST8 Ecosystem - Платформа для бизнеса</title>
 <link rel="manifest" href="./manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root {
   --primary: #00d9ff;
@@ -35,7 +35,6 @@ body {
   overflow-x: hidden;
 }
 
-/* GRADIENT BACKGROUND */
 body::before {
   content: '';
   position: fixed;
@@ -56,7 +55,6 @@ body::before {
   50% { filter: hue-rotate(10deg); }
 }
 
-/* HEADER */
 header {
   position: sticky;
   top: 0;
@@ -96,7 +94,6 @@ header {
   color: var(--bg);
 }
 
-/* HERO */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -114,11 +111,11 @@ header {
 }
 
 .hero h1 {
-  font-size: clamp(3rem, 10vw, 5.5rem);
+  font-size: clamp(2.5rem, 10vw, 4.5rem);
   font-weight: 900;
   line-height: 1.1;
   margin-bottom: 1rem;
-  letter-spacing: -3px;
+  letter-spacing: -2px;
   animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -141,7 +138,7 @@ header {
 }
 
 .hero p {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: rgba(255,255,255,0.7);
   margin-bottom: 3rem;
   animation: fadeInUp 1s ease 0.2s both;
@@ -164,7 +161,7 @@ header {
   padding: 1rem 2rem;
   border-radius: 50px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.3s;
   border: none;
@@ -194,7 +191,6 @@ header {
   transform: translateY(-4px);
 }
 
-/* LOADING SCREEN */
 .loader {
   position: fixed;
   top: 0;
@@ -250,7 +246,6 @@ header {
   to { transform: rotate(360deg); }
 }
 
-/* STATS */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -279,18 +274,17 @@ header {
   margin-top: 0.5rem;
 }
 
-/* APPS SECTION */
 .apps-section {
   padding: 8rem 2rem;
   position: relative;
 }
 
 .section-title {
-  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-size: clamp(2rem, 8vw, 3.5rem);
   font-weight: 900;
   text-align: center;
   margin-bottom: 1rem;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
 }
 
 .section-title span {
@@ -354,22 +348,33 @@ header {
 }
 
 .app-icon {
-  font-size: 3.5rem;
+  font-size: 3rem;
   margin-bottom: 1.5rem;
   display: block;
 }
 
 .app-card h3 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
 }
 
 .app-card p {
   color: rgba(255,255,255,0.7);
   margin-bottom: 1.5rem;
   line-height: 1.6;
+}
+
+.app-desc {
+  background: rgba(0,217,255,0.05);
+  border-left: 3px solid var(--primary);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  text-align: left;
 }
 
 .app-features {
@@ -384,20 +389,10 @@ header {
 }
 
 .app-features li::before {
-  content: '▸ ';
+  content: '• ';
   color: var(--primary);
   font-weight: 900;
   margin-right: 0.5rem;
-}
-
-.app-desc {
-  background: rgba(0,217,255,0.05);
-  border-left: 3px solid var(--primary);
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.8);
 }
 
 .app-card button {
@@ -421,14 +416,13 @@ header {
 }
 
 .made-by {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: rgba(255,255,255,0.4);
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(0,217,255,0.1);
 }
 
-/* FOOTER */
 footer {
   padding: 4rem 2rem;
   text-align: center;
@@ -447,172 +441,155 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 2rem 1rem; }
+  .hero { padding: 2rem 1rem; min-height: 80vh; }
   .stats { margin-top: 3rem; padding-top: 3rem; }
   .apps-grid { gap: 1.5rem; }
+  header { padding: 1rem; }
+  .logo { font-size: 1.4rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- LOADING SCREEN -->
 <div class="loader" id="loader">
   <div class="loader-content">
-    <div class="loader-logo">🚀</div>
-    <div class="loader-text">ST8 ECOSYSTEM</div>
+    <div class="loader-logo">ST8</div>
+    <div class="loader-text">Загрузка платформы</div>
     <div class="spinner"></div>
   </div>
 </div>
 
-<!-- HEADER -->
 <header>
   <div class="logo">ST8</div>
-  <button class="nav-btn" onclick="scrollTo('apps')">EXPLORE</button>
+  <button class="nav-btn" onclick="scrollTo('apps')">Смотреть приложения</button>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <h1>The <span>ST8</span> Ecosystem</h1>
-    <p>Three powerful AI applications for your business. One platform. Infinite possibilities.</p>
+    <h1>ST8 <span>Ecosystem</span></h1>
+    <p>Единая платформа с тремя мощными приложениями для вашего бизнеса</p>
     
     <div class="cta-group">
-      <button class="btn btn-primary" onclick="scrollTo('apps')">EXPLORE APPS</button>
-      <button class="btn btn-secondary" onclick="showInfo()">LEARN MORE</button>
+      <button class="btn btn-primary" onclick="scrollTo('apps')">Смотреть приложения</button>
+      <button class="btn btn-secondary" onclick="showInfo()">Больше информации</button>
     </div>
 
     <div class="stats">
       <div class="stat">
         <div class="stat-num">150K+</div>
-        <div class="stat-label">Users</div>
+        <div class="stat-label">Пользователей</div>
       </div>
       <div class="stat">
         <div class="stat-num">5000+</div>
-        <div class="stat-label">Companies</div>
+        <div class="stat-label">Компаний</div>
       </div>
       <div class="stat">
         <div class="stat-num">98%</div>
-        <div class="stat-label">Satisfaction</div>
+        <div class="stat-label">Удовлетворения</div>
       </div>
       <div class="stat">
         <div class="stat-num">24/7</div>
-        <div class="stat-label">Support</div>
+        <div class="stat-label">Поддержка</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- APPS -->
 <section class="apps-section" id="apps">
-  <h2 class="section-title">Choose Your <span>Solution</span></h2>
-  <p class="section-desc">Pick the application that powers your business</p>
+  <h2 class="section-title">Выберите <span>своё решение</span></h2>
+  <p class="section-desc">Три приложения для разных направлений бизнеса</p>
 
   <div class="apps-grid">
-    <!-- ST8 RESTO -->
     <div class="app-card">
       <div class="app-inner">
         <span class="app-icon">🍽️</span>
         <h3>ST8 RESTO</h3>
-        <p><strong>The AI chef technology for restaurants, cafes and catering.</strong></p>
+        <p><strong>AI технолог для ресторана, кафе и кулинарного производства</strong></p>
         <div class="app-desc">
-          📖 <strong>What it does:</strong> Manages menus, recipes (TTK), calculates food costs, analyzes revenue, generates AI reports. Perfect for restaurants, bakeries, dark kitchens, and corporate catering.
+          Управление меню, рецептуры (ТТК), контроль фудкоста, анализ выручки, генерация отчётов через AI. Для ресторанов, пекарен, dark kitchen и корпоративного питания.
         </div>
         <ul class="app-features">
-          <li>Technology maps (TTK)</li>
-          <li>Food cost control</li>
-          <li>Revenue analytics</li>
-          <li>AI document generation</li>
+          <li>Технологические карты (ТТК)</li>
+          <li>Контроль пищевых затрат</li>
+          <li>Анализ выручки и меню</li>
+          <li>AI генерация документов</li>
         </ul>
-        <button onclick="loadApp('resto')">Open RESTO</button>
-        <div class="made-by">Made by ST8 AI © 2026</div>
+        <button onclick="loadApp('resto/')">Открыть ST8 RESTO</button>
+        <div class="made-by">Сделано ST8 AI ® 2026</div>
       </div>
     </div>
 
-    <!-- UNIKFOOD -->
     <div class="app-card">
       <div class="app-inner">
         <span class="app-icon">🟢</span>
         <h3>Unikfood</h3>
-        <p><strong>Production management for restaurant networks and food manufacturers.</strong></p>
+        <p><strong>Управление производством для сетей ресторанов</strong></p>
         <div class="app-desc">
-          📖 <strong>What it does:</strong> Standardizes recipes across locations, manages production processes, ensures quality control. For restaurant chains and food production companies.
+          Стандартизация рецептур, управление производственными процессами, контроль качества. Для ресторанных сетей и производства пищевых продуктов.
         </div>
         <ul class="app-features">
-          <li>Recipe standardization</li>
-          <li>Production workflows</li>
-          <li>Quality control</li>
-          <li>Multi-location sync</li>
+          <li>Единые рецептуры</li>
+          <li>Производственные процессы</li>
+          <li>Контроль качества</li>
+          <li>Синхронизация между объектами</li>
         </ul>
-        <button onclick="loadApp('unikfood')">Open Unikfood</button>
-        <div class="made-by">Made by ST8 AI © 2026</div>
+        <button onclick="loadApp('resto/unikfood.html')">Открыть Unikfood</button>
+        <div class="made-by">Сделано ST8 AI ® 2026</div>
       </div>
     </div>
 
-    <!-- СТ8 СТРОЙ -->
     <div class="app-card">
       <div class="app-inner">
         <span class="app-icon">🏗️</span>
         <h3>СТ8 СТРОЙ</h3>
-        <p><strong>AI foreman assistant for construction management.</strong></p>
+        <p><strong>AI помощник прораба для управления строительством</strong></p>
         <div class="app-desc">
-          📖 <strong>What it does:</strong> Manages construction sites, tracks brigades, generates documents (KS-6a, acts, permits), logs defects and safety. All documents automated by AI.
+          Управление объектами, учёт бригад, автоматизация документов (КС-6а, акты, наряды-допуски), журналы дефектов и безопасности. Все документы генерирует AI.
         </div>
         <ul class="app-features">
-          <li>Site management</li>
-          <li>Brigade tracking</li>
-          <li>Document automation</li>
-          <li>Safety logs</li>
+          <li>Управление объектами</li>
+          <li>Учёт бригад и рабочих</li>
+          <li>Автоматизация документов</li>
+          <li>Журналы безопасности</li>
         </ul>
-        <button onclick="loadApp('stroy')">Open STROY</button>
-        <div class="made-by">Made by ST8 AI © 2026</div>
+        <button onclick="loadApp('stroy/')">Открыть СТ8 СТРОЙ</button>
+        <div class="made-by">Сделано ST8 AI ® 2026</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <p>
-    <strong>ST8 Ecosystem</strong> © 2026 | Built by <strong>ST8 AI</strong>
-  </p>
+  <p><strong>ST8 Ecosystem</strong> ® 2026 | Разработано ST8 AI</p>
   <p style="margin-top: 1rem;">
-    <a href="https://st8-ai.ru" target="_blank">🌐 st8-ai.ru</a> | 
-    <a href="mailto:hello@st8-ai.ru">📧 hello@st8-ai.ru</a>
+    <a href="https://st8-ai.ru" target="_blank">st8-ai.ru</a> | 
+    <a href="mailto:hello@st8-ai.ru">hello@st8-ai.ru</a>
   </p>
   <p style="margin-top: 1rem; font-size: 0.9rem;">
-    Powered by Anthropic Claude | Made with ❤️ in 2026
+    Powered by Anthropic Claude
   </p>
 </footer>
 
 <script>
-// LOADER
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('loader').classList.add('hidden');
   }, 2000);
 });
 
-// SCROLL
 function scrollTo(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
-// LOAD APP
-function loadApp(app) {
+function loadApp(path) {
   document.getElementById('loader').classList.remove('hidden');
   setTimeout(() => {
-    if (app === 'resto') {
-      window.location.href = './resto/';
-    } else if (app === 'unikfood') {
-      window.location.href = './resto/unikfood.html';
-    } else if (app === 'stroy') {
-      window.location.href = './stroy/';
-    }
+    window.location.href = path;
   }, 1000);
 }
 
 function showInfo() {
-  alert('🚀 ST8 Ecosystem - Three powerful AI applications:\n\n🍽️ RESTO - For restaurants & catering\n🟢 Unikfood - For food production\n🏗️ СТРОЙ - For construction\n\nEach app has AI automation, offline mode, and mobile PWA support.');
+  alert('ST8 Ecosystem\n\nТри приложения для бизнеса:\n\n1. ST8 RESTO - Ресторан и кулинария\n2. Unikfood - Производство\n3. СТ8 СТРОЙ - Строительство\n\nКаждое приложение имеет AI автоматизацию, работает офлайн и устанавливается как PWA на телефон.');
 }
 </script>
 </body>
