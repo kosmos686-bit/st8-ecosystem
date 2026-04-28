@@ -405,7 +405,53 @@ function saveSettings(){
 }
 function resetAll(){ if(!confirm('Сбросить ВСЕ данные?'))return; localStorage.clear(); location.reload(); }
 
+// ══ ЭКСПОРТ / ИМПОРТ ДАННЫХ ══
+function exportData() {
+  const keys = ['st8_config','st8_vertical','st8_cheff_memory','st8_chat','st8_analytics','st8_purchases','st8_inventory','st8_ttk','st8_reviews'];
+  const data = { app: 'ST8 RESTO', version: '1.0', date: new Date().toISOString(), data: {} };
+  keys.forEach(k => { const v = localStorage.getItem(k); if(v) data.data[k] = v; });
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'st8-resto-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const backup = JSON.parse(ev.target.result);
+        if (!backup.data) throw new Error('Неверный формат');
+        if (!confirm(`Восстановить данные ST8 RESTO от ${backup.date?.slice(0,10) || '?'}?\nТекущие данные будут заменены!`)) return;
+        Object.entries(backup.data).forEach(([k, v]) => localStorage.setItem(k, v));
+        alert('✅ Данные восстановлены!');
+        location.reload();
+      } catch(err) {
+        alert('❌ Ошибка: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
 init();
 </script>
-</body>
+
+<!-- КНОПКИ ДАННЫХ -->
+<div style="position:fixed;bottom:1rem;left:1rem;z-index:500;display:flex;gap:0.5rem;">
+  <button onclick="exportData()" style="padding:0.5rem 0.8rem;background:#1a1a1a;border:1px solid rgba(212,175,55,0.4);color:#d4af37;border-radius:8px;cursor:pointer;font-size:0.8rem;font-weight:600;" title="Скачать резервную копию">💾 Бэкап</button>
+  <button onclick="importData()" style="padding:0.5rem 0.8rem;background:#1a1a1a;border:1px solid rgba(212,175,55,0.4);color:#d4af37;border-radius:8px;cursor:pointer;font-size:0.8rem;font-weight:600;" title="Восстановить из файла">📂 Загрузить</button>
+</div>
+
+<!-- ЭКСПОРТ/ИМПОРТ КНОПКИ --><div style="position:fixed;bottom:1rem;left:1rem;z-index:500;display:flex;gap:0.5rem;"><button onclick="exportData()" style="padding:0.5rem 0.8rem;background:#1a1a1a;border:1px solid rgba(212,175,55,0.4);color:#d4af37;border-radius:8px;cursor:pointer;font-size:0.8rem;font-weight:600;font-family:Inter;" title="Скачать резервную копию">💾 Бэкап</button><button onclick="importData()" style="padding:0.5rem 0.8rem;background:#1a1a1a;border:1px solid rgba(212,175,55,0.4);color:#d4af37;border-radius:8px;cursor:pointer;font-size:0.8rem;font-weight:600;font-family:Inter;" title="Восстановить из файла">📂 Загрузить</button></div></body>
 </html>

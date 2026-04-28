@@ -1610,5 +1610,44 @@ function resetAll(){if(!confirm('Сбросить ВСЕ данные?'))return;
 init();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
-</body>
+<!-- ЭКСПОРТ/ИМПОРТ КНОПКИ --><div style="position:fixed;bottom:1rem;left:1rem;z-index:500;display:flex;gap:0.5rem;"><button onclick="exportData()" style="padding:0.5rem 0.8rem;background:#1a1a1a;border:1px solid rgba(212,175,55,0.4);color:#F5C518;border-radius:8px;cursor:pointer;font-size:0.8rem;font-weight:600;font-family:Inter;" title="Скачать резервную копию">💾 Бэкап</button><button onclick="importData()" style="padding:0.5rem 0.8rem;background:#1a1a1a;border:1px solid rgba(212,175,55,0.4);color:#F5C518;border-radius:8px;cursor:pointer;font-size:0.8rem;font-weight:600;font-family:Inter;" title="Восстановить из файла">📂 Загрузить</button></div></body>
 </html>
+
+// ══ ЭКСПОРТ / ИМПОРТ ДАННЫХ ══
+function exportData() {
+  const keys = ['s_cfg','s_obj','s_brig','s_nar','s_mat','s_ks6a','s_jd','s_jtb','s_jw','s_js','s_jak','s_an','s_costs','s_chat','s_mem'];
+  const data = { app: 'СТ8 СТРОЙ', version: '1.0', date: new Date().toISOString(), data: {} };
+  keys.forEach(k => { const v = localStorage.getItem(k); if(v) data.data[k] = v; });
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'st8-stroy-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const backup = JSON.parse(ev.target.result);
+        if (!backup.data) throw new Error('Неверный формат');
+        if (!confirm(`Восстановить данные СТ8 СТРОЙ от ${backup.date?.slice(0,10) || '?'}?\nТекущие данные будут заменены!`)) return;
+        Object.entries(backup.data).forEach(([k, v]) => localStorage.setItem(k, v));
+        alert('✅ Данные восстановлены!');
+        location.reload();
+      } catch(err) {
+        alert('❌ Ошибка: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
