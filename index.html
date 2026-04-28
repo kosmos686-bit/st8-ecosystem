@@ -11,6 +11,7 @@
 <style>
 :root {
   --accent: #6366F1;
+  --lime: #32ff00;
   --bg: #0a0a0a;
   --surface: #141414;
   --surface2: #1e1e1e;
@@ -29,9 +30,10 @@ h1 span { color: var(--accent); }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
 .card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.3s; cursor: pointer; }
 .card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(99,102,241,0.2); }
-.card-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.card-icon { font-size: 4rem; margin-bottom: 1rem; }
 .card h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem; }
-.card-desc { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6; font-size: 0.95rem; }
+.card-desc { color: var(--text-muted); margin-bottom: 0.8rem; line-height: 1.6; font-size: 0.95rem; }
+.card-info { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6; font-size: 0.9rem; }
 .card-tags { margin-bottom: 1.5rem; }
 .badge { display: inline-block; padding: 0.35rem 0.8rem; background: rgba(99,102,241,0.15); color: var(--accent); border-radius: 6px; font-size: 0.75rem; font-weight: 600; margin-right: 0.5rem; margin-bottom: 0.5rem; }
 .btn { display: inline-block; padding: 0.8rem 1.8rem; background: var(--accent); color: #0a0a0a; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.2s; width: 100%; text-align: center; }
@@ -46,11 +48,16 @@ h1 span { color: var(--accent); }
 footer { text-align: center; margin-top: 4rem; padding: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); }
 footer a { color: var(--accent); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
-.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 1000; align-items: center; justify-content: center; padding: 1rem; }
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 1rem; }
 .modal.active { display: flex; }
 .modal-content { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; }
 .modal-close { float: right; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
 .modal-close:hover { color: var(--text); }
+.download-banner { background: linear-gradient(135deg, var(--surface), var(--surface2)); border: 1px solid var(--accent); border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 3rem; }
+.download-banner h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+.download-banner p { color: var(--text-muted); margin-bottom: 1.5rem; }
+.download-btn { display: inline-block; padding: 0.9rem 2.5rem; background: var(--accent); color: #0a0a0a; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
+.download-btn:hover { filter: brightness(1.15); transform: scale(1.05); }
 </style>
 </head>
 <body>
@@ -61,6 +68,12 @@ footer a:hover { text-decoration: underline; }
     <p class="subtitle">Три мощных приложения в одной экосистеме</p>
   </header>
 
+  <div class="download-banner">
+    <h3>📱 Загрузи ST8 Ecosystem как приложение</h3>
+    <p>Установи на свой телефон или компьютер за 10 секунд</p>
+    <button class="download-btn" onclick="installApp()">⬇️ Загрузить приложение</button>
+  </div>
+
   <div class="grid">
     <!-- ST8 RESTO -->
     <div class="card" onclick="goTo('/resto/')">
@@ -68,6 +81,9 @@ footer a:hover { text-decoration: underline; }
       <h2>ST8 RESTO</h2>
       <p class="card-desc">
         Персональный AI технолог для ресторана, кафе, пекарни и корпоративного питания.
+      </p>
+      <p class="card-info">
+        ✅ Меню, фудкост, отчёты, анализ выручки — всё автоматически.
       </p>
       <div class="card-tags">
         <span class="badge">🍽️ Для ресторана</span>
@@ -77,17 +93,20 @@ footer a:hover { text-decoration: underline; }
     </div>
 
     <!-- UNIKFOOD -->
-    <div class="card" onclick="goTo('/resto/unikfood.html')">
+    <div class="card" onclick="goTo('/resto/unikfood.html')" style="border-color: var(--lime);">
       <div class="card-icon">🟢</div>
-      <h2>Unikfood</h2>
+      <h2 style="color: var(--lime);">Unikfood</h2>
       <p class="card-desc">
         Специализированная система для сетей и производства пищевых продуктов.
       </p>
+      <p class="card-info">
+        ✅ Рецептуры, производство, стандартизация качества.
+      </p>
       <div class="card-tags">
-        <span class="badge">🏭 Производство</span>
-        <span class="badge">📦 Рецептуры</span>
+        <span class="badge" style="background: rgba(50,255,0,0.15); color: var(--lime);">🏭 Производство</span>
+        <span class="badge" style="background: rgba(50,255,0,0.15); color: var(--lime);">📦 Рецептуры</span>
       </div>
-      <button class="btn">Открыть →</button>
+      <button class="btn" style="background: var(--lime); color: #0a0a0a;">Открыть →</button>
     </div>
 
     <!-- СТ8 СТРОЙ -->
@@ -96,6 +115,9 @@ footer a:hover { text-decoration: underline; }
       <h2>СТ8 СТРОЙ</h2>
       <p class="card-desc">
         Персональный AI помощник прораба для управления строительством.
+      </p>
+      <p class="card-info">
+        ✅ Объекты, бригады, документы, дефекты, безопасность.
       </p>
       <div class="card-tags">
         <span class="badge">🏗️ Строительство</span>
@@ -108,35 +130,35 @@ footer a:hover { text-decoration: underline; }
   <div class="features">
     <h3>✨ Единая экосистема с общими возможностями</h3>
     <div class="feature-grid">
-      <div class="feature-item" onclick="showFeature('Установка как приложение на телефон или компьютер. Работает как обычное приложение, но в браузере.')">
+      <div class="feature-item" onclick="showFeature('PWA', 'Установка как приложение на телефон или компьютер. Работает как обычное приложение, но в браузере. Займёт всего несколько мегабайт места.')">
         <div class="feature-item-title">📱 PWA</div>
         <div class="feature-item-desc">Установка как приложение на телефон</div>
       </div>
-      <div class="feature-item" onclick="showFeature('Генерация документов, отчётов, анализ данных через искусственный интеллект Anthropic Claude. Всё происходит автоматически.')">
+      <div class="feature-item" onclick="showFeature('AI генерация', 'Генерация документов, отчётов, анализ данных через искусственный интеллект Anthropic Claude. Всё происходит автоматически. Просто загрузи файл или скажи что нужно.')">
         <div class="feature-item-title">🤖 AI</div>
         <div class="feature-item-desc">Генерация документов через Claude</div>
       </div>
-      <div class="feature-item" onclick="showFeature('Service Worker кэширует приложение так, что оно работает даже если нет интернета. Все ваши данные сохраняются локально.')">
+      <div class="feature-item" onclick="showFeature('Офлайн работа', 'Service Worker кэширует приложение так, что оно работает даже если нет интернета. Все твои данные сохраняются локально и синхронизируются когда вернётся соединение.')">
         <div class="feature-item-title">💾 Офлайн</div>
         <div class="feature-item-desc">Service Worker для работы без интернета</div>
       </div>
-      <div class="feature-item" onclick="showFeature('Все данные хранятся только в браузере вашего устройства. На серверы ничего не отправляется. Полная конфиденциальность.')">
+      <div class="feature-item" onclick="showFeature('Приватность', 'Все данные хранятся только в браузере вашего устройства. На серверы ничего не отправляется. Полная конфиденциальность. API ключ хранится только у тебя.')">
         <div class="feature-item-title">🔒 Приватность</div>
         <div class="feature-item-desc">Все данные в браузере (localStorage)</div>
       </div>
-      <div class="feature-item" onclick="showFeature('Полная настройка под вашу компанию: цвета, название, реквизиты, параметры и всё остальное можно изменить.')">
+      <div class="feature-item" onclick="showFeature('Кастомизация', 'Полная настройка под вашу компанию: цвета, название, реквизиты, параметры расчётов и всё остальное можно изменить в настройках.')">
         <div class="feature-item-title">⚙️ Кастомизация</div>
         <div class="feature-item-desc">Полная настройка под вас</div>
       </div>
-      <div class="feature-item" onclick="showFeature('Графики выручки, отчёты по объектам, метрики производительности, ABC-анализ меню и многое другое.')">
+      <div class="feature-item" onclick="showFeature('Аналитика', 'Графики выручки, отчёты по объектам, метрики производительности, ABC-анализ меню, выявление медленных позиций и многое другое.')">
         <div class="feature-item-title">📊 Аналитика</div>
         <div class="feature-item-desc">Графики, отчёты, метрики</div>
       </div>
-      <div class="feature-item" onclick="showFeature('Загрузка данных из Excel, CSV или текстовых файлов. AI автоматически распознаёт структуру и заполняет данные.')">
+      <div class="feature-item" onclick="showFeature('Импорт данных', 'Загрузка данных из Excel, CSV или текстовых файлов. AI автоматически распознаёт структуру и заполняет данные. Экономит часы работы.')">
         <div class="feature-item-title">📂 Импорт</div>
         <div class="feature-item-desc">Быстрая загрузка данных из файлов</div>
       </div>
-      <div class="feature-item" onclick="showFeature('Автоматическое сохранение всех изменений. Данные синхронизируются в реальном времени и никогда не теряются.')">
+      <div class="feature-item" onclick="showFeature('Синхронизация', 'Автоматическое сохранение всех изменений. Данные синхронизируются в реальном времени и никогда не теряются. Работаешь спокойно.')">
         <div class="feature-item-title">🔄 Синхронизация</div>
         <div class="feature-item-desc">Автосохранение всех данных</div>
       </div>
@@ -148,7 +170,7 @@ footer a:hover { text-decoration: underline; }
       <strong>ST8 Ecosystem</strong> © 2026 | Сделано <strong>ST8 AI</strong>
     </p>
     <p>
-      <a href="https://st8.ai" target="_blank">st8.ai</a>
+      <a href="https://st8.ai" target="_blank">🌐 st8.ai</a>
     </p>
     <p style="margin-top: 1rem; font-size: 0.85rem; color: rgba(240,240,240,.2);">
       Powered by Anthropic Claude | Индиго #6366F1
@@ -159,6 +181,7 @@ footer a:hover { text-decoration: underline; }
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="modal-close" onclick="closeModal()">✕</span>
+    <h2 id="modal-title" style="margin-bottom: 1rem; color: var(--accent);"></h2>
     <div id="modal-text"></div>
   </div>
 </div>
@@ -168,13 +191,18 @@ function goTo(path) {
   window.location.href = path;
 }
 
-function showFeature(text) {
+function showFeature(title, text) {
+  document.getElementById('modal-title').textContent = title;
   document.getElementById('modal-text').innerHTML = '<p style="font-size: 1rem; line-height: 1.6; color: var(--text);">' + text + '</p>';
   document.getElementById('modal').classList.add('active');
 }
 
 function closeModal() {
   document.getElementById('modal').classList.remove('active');
+}
+
+function installApp() {
+  alert('📱 Чтобы установить приложение:\n\n🔹 Android/Chrome: Нажми "Установить" в адресной строке\n🔹 iPhone/Safari: Share → Add to Home Screen\n\nПриложение уже готово к установке!');
 }
 
 document.getElementById('modal').addEventListener('click', function(e) {
