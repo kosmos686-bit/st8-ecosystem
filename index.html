@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6366F1">
+<title>ST8 Ecosystem | Платформа для бизнеса</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #6366F1;
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface2: #1e1e1e;
+  --border: rgba(255,255,255,0.08);
+  --text: #f0f0f0;
+  --text-muted: rgba(240,240,240,0.45);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+.container { max-width: 1280px; margin: 0 auto; padding: 2rem 1rem; flex: 1; width: 100%; }
+header { text-align: center; margin-bottom: 3rem; }
+h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 0.5rem; letter-spacing: -0.03em; }
+h1 span { color: var(--accent); }
+.subtitle { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem; }
+.tagline { font-size: 0.9rem; color: rgba(99,102,241,0.7); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.3s; }
+.card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(99,102,241,0.2); }
+.card-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.card h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem; }
+.card-desc { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6; font-size: 0.95rem; }
+.btn { display: inline-block; padding: 0.8rem 1.8rem; background: var(--accent); color: #0a0a0a; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+.btn:hover { filter: brightness(1.15); }
+.features { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; margin-top: 3rem; }
+.features h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+.feature-item { padding: 1.2rem; background: var(--surface2); border-radius: 10px; border-left: 3px solid var(--accent); }
+.feature-item strong { color: var(--accent); }
+footer { text-align: center; margin-top: 4rem; padding: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); }
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+.badge { display: inline-block; padding: 0.3rem 0.7rem; background: rgba(99,102,241,0.15); color: var(--accent); border-radius: 5px; font-size: 0.75rem; font-weight: 600; margin-top: 0.5rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1><span>ST8</span> Ecosystem</h1>
+    <p class="tagline">Единая платформа AI для бизнеса</p>
+    <p class="subtitle">Три мощных приложения в одной экосистеме</p>
+  </header>
+
+  <div class="grid">
+    <!-- ST8 RESTO -->
+    <div class="card">
+      <div class="card-icon">🍽️</div>
+      <h2>ST8 RESTO</h2>
+      <p class="card-desc">
+        Персональный AI технолог для ресторана, кафе, пекарни и корпоративного питания.
+      </p>
+      <p class="card-desc" style="font-size: 0.85rem; color: var(--text-dim);">
+        Меню, фудкост, отчёты, анализ выручки — всё автоматически.
+      </p>
+      <span class="badge">🍽️ Для ресторана</span>
+      <br>
+      <a href="/resto/" class="btn" style="margin-top: 1rem;">Открыть →</a>
+    </div>
+
+    <!-- UNIKFOOD -->
+    <div class="card">
+      <div class="card-icon">🥘</div>
+      <h2>Unikfood</h2>
+      <p class="card-desc">
+        Специализированная система для сетей и производства пищевых продуктов.
+      </p>
+      <p class="card-desc" style="font-size: 0.85rem; color: var(--text-dim);">
+        Рецептуры, производство, стандартизация качества.
+      </p>
+      <span class="badge">🏭 Для производства</span>
+      <br>
+      <a href="/resto/unikfood.html" class="btn" style="margin-top: 1rem;">Открыть →</a>
+    </div>
+
+    <!-- СТ8 СТРОЙ -->
+    <div class="card">
+      <div class="card-icon">🏗️</div>
+      <h2>СТ8 СТРОЙ</h2>
+      <p class="card-desc">
+        Персональный AI помощник прораба для управления строительством.
+      </p>
+      <p class="card-desc" style="font-size: 0.85rem; color: var(--text-dim);">
+        Объекты, бригады, документы, дефекты, безопасность.
+      </p>
+      <span class="badge">🏗️ Для строительства</span>
+      <br>
+      <a href="/stroy/" class="btn" style="margin-top: 1rem;">Открыть →</a>
+    </div>
+  </div>
+
+  <div class="features">
+    <h3>✨ Единая экосистема с общими возможностями</h3>
+    <div class="feature-grid">
+      <div class="feature-item">📱 <strong>PWA</strong> - Установка как приложение на телефон</div>
+      <div class="feature-item">🤖 <strong>AI</strong> - Генерация документов через Claude</div>
+      <div class="feature-item">💾 <strong>Офлайн</strong> - Service Worker для работы без интернета</div>
+      <div class="feature-item">🔒 <strong>Приватность</strong> - Все данные в браузере (localStorage)</div>
+      <div class="feature-item">⚙️ <strong>Кастомизация</strong> - Полная настройка под вас</div>
+      <div class="feature-item">📊 <strong>Аналитика</strong> - Графики, отчёты, метрики</div>
+      <div class="feature-item">📂 <strong>Импорт</strong> - Быстрая загрузка данных из файлов</div>
+      <div class="feature-item">🔄 <strong>Синхронизация</strong> - Автосохранение всех данных</div>
+    </div>
+  </div>
+
+  <footer>
+    <p style="margin-bottom: 1rem;">
+      <strong>ST8 Ecosystem</strong> © 2026 | Сделано <strong>ST8 AI</strong>
+    </p>
+    <p>
+      <a href="https://st8.ai" target="_blank">st8.ai</a> | 
+      <a href="https://github.com/kosmos686-bit" target="_blank">GitHub</a>
+    </p>
+    <p style="margin-top: 1rem; font-size: 0.85rem; color: rgba(240,240,240,.2);">
+      Powered by Anthropic Claude | Индиго #6366F1
+    </p>
+  </footer>
+</div>
+</body>
+</html>

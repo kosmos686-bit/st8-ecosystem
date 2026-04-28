@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ST8 RESTO">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230a0a0a' width='180' height='180'/><text x='90' y='110' font-size='70' font-weight='900' text-anchor='middle' fill='%23d4af37' font-family='Inter'>ST8</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230a0a0a' width='180' height='180'/><text x='90' y='110' font-size='70' font-weight='900' text-anchor='middle' fill='%23d4af37' font-family='Inter'>ST8</text></svg>">
+<title>ST8 RESTO | CHEFF AI Технолог</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<style>
+:root { --accent: #d4af37; --bg: #0a0a0a; --surface: #141414; --surface2: #1e1e1e; --surface3: #252525; --border: rgba(255,255,255,0.08); --text: #f0f0f0; --text-muted: rgba(240,240,240,0.45); --text-dim: rgba(240,240,240,0.2); --radius: 12px; --font: 'Inter', sans-serif; --header-h: 60px; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); }
+body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+#onboarding { min-height: 100vh; background: #0a0a0a; display: flex; flex-direction: column; align-items: center; padding: 2rem 1rem; }
+.ob-logo { font-size: 2rem; font-weight: 900; letter-spacing: -.03em; margin-bottom: .25rem; }
+.ob-logo span { color: var(--accent); }
+.ob-sub { font-size: .7rem; letter-spacing: .2em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 2rem; }
+.ob-steps { display: flex; gap: .5rem; margin-bottom: 2rem; }
+.ob-step { width: 32px; height: 3px; background: var(--border); border-radius: 2px; transition: background .3s; }
+.ob-step.active { background: var(--accent); }
+.ob-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; width: 100%; max-width: 560px; }
+.ob-title { font-size: 1.05rem; font-weight: 700; margin-bottom: .4rem; }
+.ob-desc { font-size: .78rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+.vert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; }
+.vert-card { border: 1.5px solid var(--border); border-radius: var(--radius); padding: .875rem; cursor: pointer; transition: all .2s; }
+.vert-card:hover, .vert-card.selected { border-color: var(--accent); background: rgba(212,175,55,.07); }
+.vc-icon { font-size: 1.4rem; margin-bottom: .4rem; }
+.vc-name { font-size: .82rem; font-weight: 600; }
+.vc-sub { font-size: .68rem; color: var(--text-muted); margin-top: .15rem; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; }
+@media (max-width: 480px) { .form-grid { grid-template-columns: 1fr; } .vert-grid { grid-template-columns: 1fr; } }
+.field { display: flex; flex-direction: column; gap: .35rem; }
+.field label { font-size: .68rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; }
+.field input, .field select, .field textarea { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: .55rem .75rem; color: var(--text); font-size: .85rem; outline: none; transition: border-color .2s; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+.field input[type=color] { height: 38px; padding: 3px; cursor: pointer; }
+.field-full { grid-column: 1 / -1; }
+.field select option { background: var(--surface2); }
+.btn { padding: .65rem 1.4rem; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; transition: all .2s; }
+.btn-accent { background: var(--accent); color: #0a0a0a; }
+.btn-accent:hover { filter: brightness(1.1); }
+.btn-outline { background: transparent; border: 1.5px solid var(--accent); color: var(--accent); }
+.btn-outline:hover { background: rgba(212,175,55,.1); }
+.btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--surface3); }
+.btn-danger { background: rgba(239,68,68,.12); color: #fca5a5; border: 1px solid rgba(239,68,68,.25); }
+.btn-danger:hover { background: rgba(239,68,68,.2); }
+.ob-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; gap: 1rem; }
+#app { display: none; min-height: 100vh; flex-direction: column; }
+header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: var(--header-h); display: flex; align-items: center; padding: 0 1rem; gap: .75rem; }
+.hd-brand { display: flex; flex-direction: column; min-width: 70px; flex-shrink: 0; }
+.hd-logo { font-size: .82rem; font-weight: 900; letter-spacing: -.01em; }
+.hd-logo span { color: var(--accent); }
+.hd-venue { font-size: .62rem; color: var(--accent); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; }
+@media (min-width: 768px) { .hd-venue { max-width: 160px; } }
+.tab-nav { flex: 1; display: flex; align-items: center; justify-content: center; gap: .15rem; overflow-x: auto; scrollbar-width: none; }
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn { display: flex; align-items: center; gap: .3rem; padding: .375rem .6rem; border-radius: 8px; border: none; background: transparent; color: var(--text-muted); font-size: .75rem; font-weight: 500; cursor: pointer; transition: all .2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--text); background: var(--surface2); }
+.tab-btn.active { color: var(--accent); background: rgba(212,175,55,.1); }
+.tab-btn .ti { font-size: .95rem; }
+.tab-btn .tl { display: none; }
+@media (min-width: 768px) { .tab-btn .tl { display: inline; } }
+.hd-right { display: flex; align-items: center; gap: .6rem; flex-shrink: 0; }
+.cheff-status { font-size: .65rem; color: #22c55e; white-space: nowrap; display: none; }
+@media (min-width: 640px) { .cheff-status { display: block; } }
+.settings-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; font-size: .95rem; display: flex; align-items: center; justify-content: center; transition: background .2s; color: var(--text-muted); }
+.settings-btn:hover { background: var(--surface3); color: var(--text); }
+.content { flex: 1; padding: 1rem; max-width: 1280px; width: 100%; margin: 0 auto; }
+@media (min-width: 768px) { .content { padding: 1.5rem; } }
+@media (min-width: 1280px) { .content { padding: 2rem; } }
+.greeting-card { background: linear-gradient(135deg, var(--surface), var(--surface2)); border: 1px solid rgba(212,175,55,.18); border-radius: 14px; padding: .9rem 1.1rem; margin-bottom: 1.1rem; display: flex; align-items: flex-start; gap: .65rem; }
+.gc-avatar { width: 34px; height: 34px; background: rgba(212,175,55,.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.gc-text { font-size: .83rem; color: var(--text-muted); line-height: 1.5; }
+.gc-text strong { color: var(--text); font-weight: 600; }
+.tab-panel { display: none; animation: fadeIn .25s ease; }
+.tab-panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+.chat-scenarios { display: flex; gap: .4rem; overflow-x: auto; margin-bottom: .9rem; padding-bottom: .2rem; scrollbar-width: none; }
+.chat-scenarios::-webkit-scrollbar { display: none; }
+.scenario-btn { flex-shrink: 0; padding: .35rem .8rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; font-size: .72rem; color: var(--text-muted); cursor: pointer; transition: all .2s; white-space: nowrap; }
+.scenario-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(212,175,55,.06); }
+.chat-messages { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; min-height: 280px; max-height: 440px; overflow-y: auto; padding: .9rem; display: flex; flex-direction: column; gap: .65rem; margin-bottom: .65rem; }
+.msg { display: flex; gap: .55rem; max-width: 88%; }
+.msg.user { align-self: flex-end; flex-direction: row-reverse; }
+.msg-avatar { width: 26px; height: 26px; border-radius: 50%; background: rgba(212,175,55,.12); display: flex; align-items: center; justify-content: center; font-size: .75rem; flex-shrink: 0; margin-top: 2px; }
+.msg.user .msg-avatar { background: var(--surface3); }
+.msg-bubble { background: var(--surface2); border-radius: 12px; padding: .55rem .85rem; font-size: .83rem; line-height: 1.55; }
+.msg.user .msg-bubble { background: rgba(212,175,55,.13); }
+.msg-actions { display: flex; gap: .35rem; margin-top: .35rem; flex-wrap: wrap; }
+.ma-btn { padding: .22rem .55rem; border-radius: 6px; font-size: .67rem; cursor: pointer; border: 1px solid var(--border); background: var(--surface2); color: var(--text-muted); transition: all .2s; }
+.ma-btn:hover { border-color: var(--accent); color: var(--accent); }
+.thinking { font-size: .78rem; color: var(--text-dim); font-style: italic; padding: .5rem .85rem; }
+.chat-input-area { display: flex; gap: .45rem; }
+.chat-input-area textarea { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: .6rem .8rem; color: var(--text); font-size: .85rem; resize: none; outline: none; transition: border-color .2s; min-height: 46px; max-height: 110px; line-height: 1.4; }
+.chat-input-area textarea:focus { border-color: var(--accent); }
+.send-btn { background: var(--accent); color: #0a0a0a; border: none; border-radius: 10px; width: 46px; height: 46px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: filter .2s; font-weight: 700; }
+.send-btn:hover { filter: brightness(1.1); }
+.warn-bar { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); border-radius: 8px; padding: .65rem .9rem; font-size: .78rem; color: #fca5a5; margin-bottom: .65rem; }
+.sec-hd { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: 1.1rem; flex-wrap: wrap; }
+.sec-hd h2 { font-size: 1.05rem; font-weight: 700; }
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+th { padding: .55rem .7rem; background: var(--surface); text-align: left; font-size: .67rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid var(--border); }
+td { padding: .55rem .7rem; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.45; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,.02); }
+.badge { display: inline-block; padding: .18rem .48rem; border-radius: 5px; font-size: .66rem; font-weight: 600; }
+.badge-green { background: rgba(34,197,94,.13); color: #86efac; }
+.badge-yellow { background: rgba(234,179,8,.13); color: #fde047; }
+.badge-red { background: rgba(239,68,68,.13); color: #fca5a5; }
+.badge-accent { background: rgba(212,175,55,.13); color: var(--accent); }
+.cheff-tip { font-size: .7rem; color: var(--accent); line-height: 1.4; font-style: italic; }
+.card-grid { display: grid; grid-template-columns: 1fr; gap: .9rem; }
+@media (min-width: 600px) { .card-grid { grid-template-columns: 1fr 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem; }
+.card h3 { font-size: .87rem; font-weight: 700; margin-bottom: .45rem; }
+.card p { font-size: .76rem; color: var(--text-muted); line-height: 1.5; }
+.roi-grid { display: grid; grid-template-columns: 1fr; gap: 1.1rem; }
+@media (min-width: 768px) { .roi-grid { grid-template-columns: 1fr 1fr; } }
+.roi-result { background: var(--surface); border: 1px solid rgba(212,175,55,.22); border-radius: 14px; padding: 1.4rem; }
+.roi-total { font-size: 2rem; font-weight: 900; color: var(--accent); margin: .4rem 0; }
+.roi-row { display: flex; justify-content: space-between; align-items: center; padding: .45rem 0; border-bottom: 1px solid var(--border); font-size: .8rem; }
+.roi-row:last-child { border-bottom: none; }
+.roi-row .rv { font-weight: 700; color: var(--accent); }
+.slider-field { margin-bottom: .9rem; }
+.slider-field label { font-size: .73rem; color: var(--text-muted); display: flex; justify-content: space-between; margin-bottom: .35rem; }
+.slider-field input[type=range] { width: 100%; accent-color: var(--accent); }
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 200; display: flex; align-items: flex-start; justify-content: center; padding: 1rem; overflow-y: auto; }
+.modal-bg.hidden { display: none; }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.4rem; width: 100%; max-width: 580px; margin: auto; }
+.modal-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.1rem; }
+.modal-hd h2 { font-size: .95rem; font-weight: 700; }
+.close-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; width: 28px; height: 28px; cursor: pointer; font-size: .9rem; color: var(--text-muted); line-height: 1; transition: all .2s; }
+.close-btn:hover { color: var(--text); background: var(--surface3); }
+.mem-list { display: flex; flex-direction: column; gap: .3rem; max-height: 110px; overflow-y: auto; margin-bottom: .4rem; }
+.mem-item { display: flex; justify-content: space-between; align-items: flex-start; gap: .4rem; background: var(--surface2); border-radius: 6px; padding: .35rem .55rem; font-size: .72rem; }
+.mem-del { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: .85rem; padding: 0 .15rem; }
+.mem-del:hover { color: #ef4444; }
+.mem-section { margin-top: .9rem; }
+.mem-section h4 { font-size: .7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .4rem; }
+.divider { height: 1px; background: var(--border); margin: 1.1rem 0; }
+.chart-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem; margin-bottom: 1.1rem; }
+.chart-title { font-size: .82rem; font-weight: 600; margin-bottom: .75rem; }
+.chart-toggle { display: flex; gap: .3rem; margin-bottom: .65rem; }
+.ct-btn { padding: .28rem .65rem; border-radius: 6px; font-size: .7rem; cursor: pointer; border: 1px solid var(--border); background: var(--surface2); color: var(--text-muted); transition: all .2s; }
+.ct-btn.active { background: rgba(212,175,55,.12); border-color: var(--accent); color: var(--accent); }
+.ct-btn:hover { border-color: rgba(212,175,55,.5); color: rgba(212,175,55,.7); }
+.search-bar { display: flex; gap: .5rem; margin-bottom: .9rem; }
+.search-bar input { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: .5rem .8rem; color: var(--text); font-size: .83rem; outline: none; }
+.search-bar input:focus { border-color: var(--accent); }
+.report-area { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem; font-size: .82rem; line-height: 1.7; color: var(--text-muted); min-height: 180px; white-space: pre-wrap; font-family: 'Inter', monospace; }
+.source-tabs { display: flex; gap: .3rem; flex-wrap: wrap; margin-bottom: .75rem; }
+.gap-sm { display: flex; gap: .5rem; flex-wrap: wrap; }
+.mt-sm { margin-top: .65rem; }
+.mt-md { margin-top: 1.1rem; }
+.text-accent { color: var(--accent); }
+.text-muted { color: var(--text-muted); }
+.text-sm { font-size: .78rem; }
+.font-bold { font-weight: 700; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 4px; }
+@media print { header, .chat-scenarios, .settings-btn, .warn-bar, .gap-sm, .sec-hd button { display: none !important; } .report-area { border: none; padding: 0; color: #000; background: #fff; } body { background: #fff; color: #000; } }
+.crm-panel { border: 1px dashed rgba(255,255,255,.12); border-radius: 10px; padding: 1.1rem; margin-top: .75rem; }
+.crm-panel .cpt { font-size: .75rem; font-weight: 700; color: var(--accent); margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+.drop-zone { border: 2px dashed var(--border); border-radius: 8px; padding: 1.75rem; text-align: center; cursor: pointer; transition: border-color .2s; }
+.drop-zone:hover { border-color: var(--accent); }
+.drop-zone p { font-size: .8rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<div id="onboarding">
+  <div class="ob-logo"><span>ST8</span> RESTO</div>
+  <div class="ob-sub">Powered by CHEFF · AI Технолог</div>
+  <div class="ob-steps">
+    <div class="ob-step active" id="st0"></div>
+    <div class="ob-step" id="st1"></div>
+    <div class="ob-step" id="st2"></div>
+  </div>
+  <div class="ob-card" id="ob-content"></div>
+</div>
+
+<div id="app">
+  <header>
+    <div class="hd-brand">
+      <div class="hd-logo"><span>ST8</span> RESTO</div>
+      <div class="hd-venue" id="hd-venue"></div>
+    </div>
+    <nav class="tab-nav" id="tab-nav"></nav>
+    <div class="hd-right">
+      <div class="cheff-status">CHEFF онлайн 🟢</div>
+      <button class="settings-btn" onclick="openSettings()" title="Настройки">⚙️</button>
+    </div>
+  </header>
+  <div class="content">
+    <div class="greeting-card">
+      <div class="gc-avatar">🤖</div>
+      <div class="gc-text" id="greeting-text">Загрузка...</div>
+    </div>
+    <div id="tab-panels"></div>
+  </div>
+</div>
+
+<div class="modal-bg hidden" id="settings-modal">
+  <div class="modal">
+    <div class="modal-hd">
+      <h2>⚙️ Настройки</h2>
+      <button class="close-btn" onclick="closeSettings()">✕</button>
+    </div>
+    <div id="settings-content"></div>
+  </div>
+</div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(err => console.log('SW ошибка:', err));
+}
+
+const S = {
+  get: k => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+  set: (k,v) => localStorage.setItem(k, JSON.stringify(v)),
+  raw: k => localStorage.getItem(k),
+  setRaw: (k,v) => localStorage.setItem(k, v),
+};
+
+let config = S.get('st8_config') || { name:'', city:'', manager:'', chef:'', cuisine:'', seats:0, avgCheck:0, revenue:0, foodcost:0, crm:'iiko', accentColor:'#d4af37' };
+let vertical = S.raw('st8_vertical') || '';
+if (config.name === 'Unikfood') { localStorage.clear(); config = { name:'', city:'', manager:'', chef:'', cuisine:'', seats:0, avgCheck:0, revenue:0, foodcost:0, crm:'iiko', accentColor:'#d4af37' }; vertical = ''; }
+let mem = S.get('st8_cheff_memory') || { wins:[], fails:[], patterns:[], notes:[], daysActive:0, lastVisit:null };
+let chatHistory = S.get('st8_chat') || [];
+let analyticsData = S.get('st8_analytics') || [];
+let purchases = S.get('st8_purchases') || [];
+let inventory = S.get('st8_inventory') || [];
+let ttkList = S.get('st8_ttk') || [];
+let reviewHistory = S.get('st8_reviews') || [];
+let charts = {};
+let roiSliders = { tech:90000, hours:2, writeoff:3, rating:3.8 };
+let obStep = 1, obVert = '', obForm = {};
+
+const TABS_CFG = {
+  RESTO:   [{id:'cheff',icon:'🤖',label:'CHEFF'},{id:'ttk',icon:'📋',label:'ТТК'},{id:'reviews',icon:'💬',label:'Отзывы'},{id:'analytics',icon:'📊',label:'Аналитика'},{id:'purchases',icon:'📦',label:'Закупки'},{id:'inventory',icon:'🔍',label:'Инвентаризация'},{id:'roi',icon:'💰',label:'ROI'},{id:'report',icon:'📤',label:'Отчёт'}],
+  BAKERY:  [{id:'cheff',icon:'🤖',label:'CHEFF'},{id:'ttk',icon:'📋',label:'Рецептуры'},{id:'purchases',icon:'📦',label:'Сырьё'},{id:'analytics',icon:'📊',label:'Партии'},{id:'roi',icon:'💰',label:'ROI'},{id:'report',icon:'📤',label:'Отчёт'}],
+  DARK:    [{id:'cheff',icon:'🤖',label:'CHEFF'},{id:'ttk',icon:'📋',label:'ТТК'},{id:'reviews',icon:'⭐',label:'Рейтинг'},{id:'analytics',icon:'📊',label:'Агрегаторы'},{id:'purchases',icon:'📦',label:'Закупки'},{id:'roi',icon:'💰',label:'ROI'},{id:'report',icon:'📤',label:'Отчёт'}],
+  CORP:    [{id:'cheff',icon:'🤖',label:'CHEFF'},{id:'ttk',icon:'📋',label:'Меню недели'},{id:'analytics',icon:'📊',label:'Нормы питания'},{id:'purchases',icon:'📦',label:'Закупки'},{id:'roi',icon:'💰',label:'ROI'},{id:'report',icon:'📤',label:'Отчёт'}],
+  FACTORY: [{id:'cheff',icon:'🤖',label:'CHEFF'},{id:'ttk',icon:'📋',label:'ТТК'},{id:'analytics',icon:'📊',label:'Производство'},{id:'inventory',icon:'🔍',label:'Контроль качества'},{id:'roi',icon:'💰',label:'ROI'},{id:'report',icon:'📤',label:'Отчёт'}],
+};
+
+const SCENARIOS_CFG = {
+  RESTO:   ['⚡ Чек-лист открытия','⚡ Анализ медленных позиций','⚡ Upsell скрипт','⚡ Мотивация команды','⚡ Температурный журнал'],
+  BAKERY:  ['⚡ Партия на день','⚡ Оптимизация рецептуры','⚡ Работа с остатками','⚡ Сезонный ассортимент'],
+  DARK:    ['⚡ Поднять рейтинг','⚡ Оптимизировать сборку','⚡ Анализ отмен','⚡ Ответ на отзыв'],
+  CORP:    ['⚡ Меню на неделю','⚡ Расчёт КБЖУ','⚡ Снизить себестоимость','⚡ Ротация меню'],
+  FACTORY: ['⚡ Производственный план','⚡ Расчёт потерь','⚡ ХАССП чек-лист'],
+};
+
+function init() {
+  if (S.raw('st8_config') && vertical) {
+    applyAccent();
+    updateDaysActive();
+    showApp();
+  } else {
+    renderOB();
+  }
+}
+
+function applyAccent() {
+  document.documentElement.style.setProperty('--accent', config.accentColor || '#d4af37');
+}
+
+function updateDaysActive() {
+  const today = new Date().toDateString();
+  if (mem.lastVisit !== today) {
+    mem.daysActive = (mem.daysActive || 0) + 1;
+    mem.lastVisit = today;
+    S.set('st8_cheff_memory', mem);
+  }
+}
+
+const VERTS_LIST = [
+  {id:'RESTO',  icon:'🍽️', name:'Ресторан / кафе',          sub:'Полный сервис, доставка, бар'},
+  {id:'BAKERY', icon:'🥐', name:'Пекарня / кондитерская',    sub:'Производство выпечки'},
+  {id:'DARK',   icon:'📦', name:'Dark Kitchen / доставка',   sub:'Только доставка, агрегаторы'},
+  {id:'CORP',   icon:'🏢', name:'Корпоративное питание',     sub:'Офисы, предприятия, соцпит'},
+  {id:'FACTORY',icon:'🏭', name:'Производство / заготовочный',sub:'Цеха, фабрики-кухни'},
+];
+
+function renderOB() {
+  const el = document.getElementById('ob-content');
+  document.querySelectorAll('.ob-step').forEach((s,i) => s.classList.toggle('active', i < obStep));
+  if (obStep === 1) {
+    el.innerHTML = `<div class="ob-title">Тип заведения</div><div class="ob-desc">CHEFF настроит систему под вашу специализацию</div><div class="vert-grid">${VERTS_LIST.map(v=>`<div class="vert-card${obVert===v.id?' selected':''}" onclick="obSelectVert('${v.id}')"><div class="vc-icon">${v.icon}</div><div class="vc-name">${v.name}</div><div class="vc-sub">${v.sub}</div></div>`).join('')}</div><div class="ob-nav"><div></div><button class="btn btn-accent" onclick="obNext()">Далее →</button></div>`;
+  } else if (obStep === 2) {
+    el.innerHTML = `<div class="ob-title">Данные заведения</div><div class="ob-desc">Чем больше данных — тем точнее советы CHEFF</div><div class="form-grid"><div class="field"><label>Название *</label><input id="f-name" placeholder="Моё кафе" value="${obForm.name||''}"></div><div class="field"><label>Город *</label><input id="f-city" placeholder="Москва" value="${obForm.city||''}"></div><div class="field"><label>Управляющий *</label><input id="f-mgr" placeholder="Иван Иванов" value="${obForm.manager||''}"></div><div class="field"><label>Шеф / технолог</label><input id="f-chef" placeholder="Пётр Петров" value="${obForm.chef||''}"></div><div class="field field-full"><label>Тип кухни / специализация</label><input id="f-cuis" placeholder="Европейская, итальянская..." value="${obForm.cuisine||''}"></div><div class="field"><label>Кол-во мест</label><input id="f-seats" type="number" placeholder="80" value="${obForm.seats||''}"></div><div class="field"><label>Средний чек ₽</label><input id="f-check" type="number" placeholder="1200" value="${obForm.avgCheck||''}"></div><div class="field"><label>Выручка млн/мес</label><input id="f-rev" type="number" step="0.1" placeholder="2.5" value="${obForm.revenue||''}"></div><div class="field"><label>Фудкост %</label><input id="f-fc" type="number" placeholder="28" value="${obForm.foodcost||''}"></div><div class="field"><label>Учётная система</label><select id="f-crm">${['iiko','R-Keeper','1С','Excel','Без системы'].map(c=>`<option${(obForm.crm||'iiko')===c?' selected':''}>${c}</option>`).join('')}</select></div><div class="field"><label>Цвет акцента</label><input id="f-color" type="color" value="${obForm.accentColor||'#d4af37'}"></div><div class="field field-full"><label>Anthropic API ключ</label><input id="f-key" type="password" placeholder="sk-ant-api03-..." value="${S.raw('st8_api_key')||''}"></div></div><div class="ob-nav"><button class="btn btn-ghost" onclick="obBack()">← Назад</button><button class="btn btn-accent" onclick="obNext()">Далее →</button></div>`;
+  } else if (obStep === 3) {
+    el.innerHTML = `<div class="ob-title">Готово!</div><div class="ob-desc">CHEFF настроен и готов работать</div><div class="crm-panel" style="text-align:center;"><div class="cpt" style="margin-bottom:1rem">✅ Система настроена</div><p class="text-muted text-sm">Все данные сохранены. CHEFF начнёт работать сразу после запуска.</p></div><div class="ob-nav"><button class="btn btn-ghost" onclick="obBack()">← Назад</button><button class="btn btn-accent" onclick="obFinish()">🚀 Запустить CHEFF</button></div>`;
+  }
+}
+
+function obSelectVert(id) { obVert = id; renderOB(); }
+function obBack() { obStep--; renderOB(); }
+function obNext() {
+  if (obStep===1) {
+    if (!obVert) { alert('Выберите тип заведения'); return; }
+    obStep=2;
+  } else if (obStep===2) {
+    const name = document.getElementById('f-name').value.trim();
+    const city = document.getElementById('f-city').value.trim();
+    const mgr = document.getElementById('f-mgr').value.trim();
+    if (!name||!city||!mgr) { alert('Заполните Название, Город и Управляющего'); return; }
+    obForm = { name, city, manager:mgr, chef:document.getElementById('f-chef').value, cuisine:document.getElementById('f-cuis').value, seats:+document.getElementById('f-seats').value||0, avgCheck:+document.getElementById('f-check').value||0, revenue:+document.getElementById('f-rev').value||0, foodcost:+document.getElementById('f-fc').value||0, crm:document.getElementById('f-crm').value, accentColor:document.getElementById('f-color').value };
+    const key = document.getElementById('f-key').value.trim();
+    if (key) S.setRaw('st8_api_key', key);
+    obStep=3;
+  }
+  renderOB();
+}
+function obFinish() {
+  config = {...obForm};
+  vertical = obVert;
+  mem = { wins:[], fails:[], patterns:[], notes:[], daysActive:1, lastVisit:new Date().toDateString() };
+  S.set('st8_config', config);
+  S.setRaw('st8_vertical', vertical);
+  S.set('st8_cheff_memory', mem);
+  document.getElementById('onboarding').style.display='none';
+  applyAccent();
+  showApp();
+}
+
+function showApp() {
+  document.getElementById('onboarding').style.display='none';
+  const app = document.getElementById('app');
+  app.style.display='flex';
+  document.getElementById('hd-venue').textContent = config.name||'';
+  buildGreeting();
+  buildTabs();
+  buildPanels();
+  switchTab('cheff');
+}
+
+function buildGreeting() {
+  const d=new Date(), day=d.getDay(), h=d.getHours();
+  const days=['воскресенье','понедельник','вторник','среду','четверг','пятницу','субботу'];
+  let tip = 'Готов помочь — задай вопрос или выбери сценарий ниже.';
+  const fname = (config.manager||'Управляющий').split(' ')[0];
+  document.getElementById('greeting-text').innerHTML = `<strong>Привет, ${fname}!</strong> Я CHEFF. Сегодня ${days[day]}. ${tip}`;
+}
+
+function buildTabs() {
+  const tabs = TABS_CFG[vertical]||TABS_CFG.RESTO;
+  document.getElementById('tab-nav').innerHTML = tabs.map(t=>
+    `<button class="tab-btn" id="tb-${t.id}" onclick="switchTab('${t.id}')"><span class="ti">${t.icon}</span><span class="tl">${t.label}</span></button>`
+  ).join('');
+}
+
+function switchTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const btn=document.getElementById(`tb-${id}`);
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  const panel=document.getElementById(`panel-${id}`);
+  if(panel) panel.classList.add('active');
+}
+
+function buildPanels() {
+  const tabs = TABS_CFG[vertical]||TABS_CFG.RESTO;
+  document.getElementById('tab-panels').innerHTML = tabs.map(t=>`<div class="tab-panel" id="panel-${t.id}"><div class="card"><p class="text-muted">ST8 RESTO установлена как PWA!</p><p class="text-muted text-sm" style="margin-top:.5rem">Раздел "${t.label}" готов к использованию</p></div></div>`).join('');
+}
+
+function openSettings(){
+  document.getElementById('settings-content').innerHTML=`
+    <div class="form-grid">
+      <div class="field"><label>Название</label><input id="s-n" value="${config.name}"></div>
+      <div class="field"><label>Город</label><input id="s-c" value="${config.city}"></div>
+      <div class="field"><label>Управляющий</label><input id="s-m" value="${config.manager}"></div>
+      <div class="field"><label>Выручка млн/мес</label><input id="s-r" type="number" step="0.1" value="${config.revenue}"></div>
+      <div class="field"><label>Цвет акцента</label><input id="s-col" type="color" value="${config.accentColor||'#d4af37'}"></div>
+      <div class="field field-full"><label>API ключ Anthropic</label><input id="s-k" type="password" placeholder="sk-ant-..." value="${S.raw('st8_api_key')||''}"></div>
+    </div>
+    <div class="gap-sm mt-sm"><button class="btn btn-accent" onclick="saveSettings()">💾 Сохранить</button><button class="btn btn-danger" onclick="resetAll()">🔄 Сбросить</button></div>`;
+  document.getElementById('settings-modal').classList.remove('hidden');
+}
+function closeSettings(){ document.getElementById('settings-modal').classList.add('hidden'); }
+function saveSettings(){
+  config.name=document.getElementById('s-n').value;
+  config.city=document.getElementById('s-c').value;
+  config.manager=document.getElementById('s-m').value;
+  config.revenue=+document.getElementById('s-r').value||0;
+  config.accentColor=document.getElementById('s-col').value;
+  const k=document.getElementById('s-k').value.trim(); if(k) S.setRaw('st8_api_key',k);
+  S.set('st8_config',config);
+  applyAccent();
+  document.getElementById('hd-venue').textContent=config.name;
+  closeSettings();
+  alert('✅ Сохранено');
+}
+function resetAll(){ if(!confirm('Сбросить ВСЕ данные?'))return; localStorage.clear(); location.reload(); }
+
+init();
+</script>
+</body>
+</html>
