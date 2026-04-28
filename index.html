@@ -3,272 +3,325 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#6366F1">
+<meta name="theme-color" content="#00d9ff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="ST8 Ecosystem">
-<title>ST8 Ecosystem | Премиум платформа AI для бизнеса</title>
+<title>ST8 Ecosystem | AI Platform for Business</title>
 <link rel="manifest" href="./manifest.json">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%236366F1' width='192' height='192'/><text x='96' y='110' font-size='80' font-weight='900' text-anchor='middle' fill='%23fff' font-family='Inter'>ST8</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --accent: #6366F1;
-  --lime: #32ff00;
-  --bg: #0a0a0a;
-  --bg-alt: #0f0f0f;
-  --surface: #141414;
-  --surface2: #1e1e1e;
-  --surface3: #262626;
-  --border: rgba(255,255,255,0.08);
-  --text: #f0f0f0;
-  --text-muted: rgba(240,240,240,0.45);
+  --primary: #00d9ff;
+  --secondary: #ff006e;
+  --accent: #b537f2;
+  --bg: #0a0e27;
+  --surface: #1a1f3a;
+  --text: #ffffff;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-
-body.light-mode {
-  --bg: #f9fafb;
-  --bg-alt: #f3f4f6;
-  --surface: #ffffff;
-  --surface2: #f3f4f6;
-  --surface3: #e5e7eb;
-  --border: rgba(0,0,0,0.08);
-  --text: #1f2937;
-  --text-muted: rgba(31,41,55,0.6);
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box;
 }
 
-body { 
-  background: var(--bg); 
-  color: var(--text); 
-  min-height: 100vh; 
-  display: flex; 
-  flex-direction: column;
-  transition: all 0.3s;
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
 }
 
+/* GRADIENT BACKGROUND */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(0,217,255,0.1) 0%,
+    rgba(255,0,110,0.05) 50%,
+    rgba(181,55,242,0.1) 100%);
+  animation: gradientShift 15s ease infinite;
+  z-index: -1;
+}
+
+@keyframes gradientShift {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(10deg); }
+}
+
+/* HEADER */
 header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10,10,10,0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 2rem;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,217,255,0.1);
+  padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-body.light-mode header {
-  background: rgba(255,255,255,0.95);
+.logo {
+  font-size: 1.8rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -2px;
 }
 
-.logo { 
-  font-size: 1.4rem; 
-  font-weight: 900; 
-  letter-spacing: -0.03em;
-}
-
-.logo span { color: var(--accent); }
-
-.header-right { display: flex; gap: 1.5rem; align-items: center; }
-
-.theme-toggle {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
+.nav-btn {
+  background: rgba(0,217,255,0.1);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.2s;
+  font-weight: 600;
+  transition: all 0.3s;
+  font-family: 'Poppins', sans-serif;
 }
 
-.theme-toggle:hover { background: var(--surface3); }
-
-.container { 
-  max-width: 1400px; 
-  margin: 0 auto; 
-  padding: 0 1rem; 
-  flex: 1; 
-  width: 100%;
+.nav-btn:hover {
+  background: var(--primary);
+  color: var(--bg);
 }
 
+/* HERO */
 .hero {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 4rem 1rem;
-  background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
+  padding: 4rem 2rem;
   position: relative;
   overflow: hidden;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -55%) scale(1.1); }
-}
-
 .hero-content {
-  position: relative;
+  max-width: 900px;
+  text-align: center;
   z-index: 2;
-  animation: slideUp 1s ease-out;
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
+.hero h1 {
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -3px;
+  animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-30px) rotateX(10deg);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 3rem;
+  animation: fadeInUp 1s ease 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.hero h1 { 
-  font-size: clamp(2rem, 8vw, 4rem);
-  font-weight: 900;
-  margin-bottom: 1rem;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-}
-
-.hero h1 span { color: var(--accent); }
-
-.hero .subtitle { 
-  font-size: clamp(1rem, 3vw, 1.3rem);
-  color: var(--text-muted); 
-  margin-bottom: 0.5rem;
-}
-
-.hero .tagline {
-  font-size: 0.95rem;
-  color: var(--accent);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-  animation: fadeIn 1s ease-out 0.2s both;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.cta-buttons {
+.cta-group {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 3rem;
-  animation: fadeIn 1s ease-out 0.4s both;
+  animation: fadeInUp 1s ease 0.4s both;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .btn-primary {
-  padding: 1rem 2.5rem;
-  background: var(--accent);
-  color: #0a0a0a;
-  border: none;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: var(--bg);
 }
 
 .btn-primary:hover {
-  filter: brightness(1.15);
-  transform: translateY(-2px);
-  box-shadow: 0 20px 40px rgba(99,102,241,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,217,255,0.3);
 }
 
 .btn-secondary {
-  padding: 1rem 2.5rem;
   background: transparent;
-  border: 2px solid var(--accent);
-  color: var(--accent);
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s;
+  border: 2px solid var(--primary);
+  color: var(--primary);
 }
 
 .btn-secondary:hover {
-  background: rgba(99,102,241,0.1);
-  transform: translateY(-2px);
+  background: rgba(0,217,255,0.1);
+  transform: translateY(-4px);
 }
 
+/* LOADING SCREEN */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.5s ease;
+}
+
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-content {
+  text-align: center;
+}
+
+.loader-logo {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+}
+
+.loader-text {
+  font-size: 1.2rem;
+  color: var(--primary);
+  margin-bottom: 2rem;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(0,217,255,0.3);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* STATS */
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 2rem;
-  margin-top: 4rem;
-  padding-top: 4rem;
-  border-top: 1px solid var(--border);
+  margin-top: 5rem;
+  padding-top: 5rem;
+  border-top: 1px dashed var(--primary);
 }
 
 .stat {
   text-align: center;
-  animation: fadeIn 1s ease-out;
+  animation: fadeInUp 1s ease 0.6s both;
 }
 
 .stat-num {
   font-size: 2.5rem;
   font-weight: 900;
-  color: var(--accent);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .stat-label {
-  color: var(--text-muted);
-  font-size: 0.95rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.5rem;
 }
 
-.carousel-section {
-  padding: 6rem 0;
-  background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+/* APPS SECTION */
+.apps-section {
+  padding: 8rem 2rem;
+  position: relative;
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 900;
   text-align: center;
   margin-bottom: 1rem;
+  letter-spacing: -2px;
+}
+
+.section-title span {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .section-desc {
   text-align: center;
-  color: var(--text-muted);
-  margin-bottom: 4rem;
+  color: rgba(255,255,255,0.6);
   font-size: 1.1rem;
+  margin-bottom: 4rem;
 }
 
-.carousel {
+.apps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .app-card {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
+  background: rgba(26,31,58,0.8);
+  border: 2px solid rgba(0,217,255,0.2);
+  border-radius: 20px;
   padding: 2.5rem;
-  transition: all 0.3s;
   cursor: pointer;
+  transition: all 0.3s;
   position: relative;
   overflow: hidden;
 }
@@ -276,574 +329,290 @@ body.light-mode header {
 .app-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--lime));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,217,255,0.1) 0%, transparent 70%);
+  animation: rotateGradient 8s linear infinite;
 }
 
-.app-card:hover::before { transform: scaleX(1); }
+@keyframes rotateGradient {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 .app-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-12px);
-  box-shadow: 0 30px 60px rgba(99,102,241,0.2);
+  border-color: var(--primary);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0,217,255,0.2);
 }
 
-.app-icon { font-size: 4rem; margin-bottom: 1.5rem; }
-
-.app-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-
-.app-card p { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6; }
-
-.app-features { 
-  list-style: none; 
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
-}
-
-.app-features li {
-  padding: 0.5rem 0;
-  color: var(--text-muted);
-}
-
-.app-features li::before {
-  content: '✓ ';
-  color: var(--accent);
-  font-weight: 700;
-  margin-right: 0.5rem;
-}
-
-.app-card-btn {
-  width: 100%;
-  padding: 0.8rem;
-  background: var(--accent);
-  color: #0a0a0a;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.app-card-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
-
-.made-by {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
-}
-
-.made-by strong { color: var(--accent); }
-
-.pricing-section {
-  padding: 6rem 0;
-  background: var(--bg);
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
-}
-
-.pricing-card {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
-  padding: 2.5rem;
+.app-inner {
   position: relative;
-  transition: all 0.3s;
+  z-index: 1;
 }
 
-.pricing-card.featured {
-  border-color: var(--accent);
-  transform: scale(1.05);
-  box-shadow: 0 20px 60px rgba(99,102,241,0.25);
+.app-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  display: block;
 }
 
-.pricing-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-8px);
-}
-
-.plan-name {
-  font-size: 1.3rem;
+.app-card h3 {
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
 }
 
-.plan-price {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 0.2rem;
+.app-card p {
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
 }
 
-.plan-price span {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  font-weight: 400;
-}
-
-.plan-desc {
-  color: var(--text-muted);
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
-}
-
-.plan-features {
+.app-features {
   list-style: none;
   margin-bottom: 2rem;
 }
 
-.plan-features li {
-  padding: 0.6rem 0;
-  color: var(--text-muted);
+.app-features li {
+  padding: 0.5rem 0;
+  color: rgba(255,255,255,0.6);
   font-size: 0.95rem;
 }
 
-.plan-features li::before {
-  content: '✓ ';
-  color: var(--accent);
-  font-weight: 700;
+.app-features li::before {
+  content: '▸ ';
+  color: var(--primary);
+  font-weight: 900;
   margin-right: 0.5rem;
 }
 
-.plan-btn {
+.app-desc {
+  background: rgba(0,217,255,0.05);
+  border-left: 3px solid var(--primary);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.app-card button {
   width: 100%;
   padding: 0.9rem;
-  background: var(--accent);
-  color: #0a0a0a;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.plan-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
-
-.features-section {
-  padding: 6rem 0;
-  background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
-}
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.feature-item {
-  padding: 2rem;
-  background: var(--surface2);
   border-radius: 12px;
-  border-left: 3px solid var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+  cursor: pointer;
   transition: all 0.3s;
-  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.feature-item:hover {
-  background: var(--surface3);
-  transform: translateX(8px);
+.app-card button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0,217,255,0.3);
 }
 
-.feature-icon { font-size: 2rem; margin-bottom: 1rem; }
-
-.feature-title { font-weight: 700; margin-bottom: 0.5rem; font-size: 1.1rem; }
-
-.feature-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
-
-.newsletter-section {
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, var(--surface), var(--surface2));
-  border-radius: 16px;
-  text-align: center;
-  margin-bottom: 6rem;
+.made-by {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0,217,255,0.1);
 }
 
-.newsletter-section h3 { font-size: 1.8rem; margin-bottom: 1rem; }
-
-.newsletter-section p { color: var(--text-muted); margin-bottom: 2rem; }
-
-.newsletter-form {
-  display: flex;
-  gap: 0.5rem;
-  max-width: 500px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.newsletter-form input {
-  flex: 1;
-  min-width: 250px;
-  padding: 0.9rem 1.2rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text);
-  font-size: 1rem;
-}
-
-.newsletter-form input::placeholder { color: var(--text-muted); }
-
-.newsletter-form button {
-  padding: 0.9rem 1.8rem;
-  background: var(--accent);
-  color: #0a0a0a;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.newsletter-form button:hover { filter: brightness(1.1); }
-
+/* FOOTER */
 footer {
+  padding: 4rem 2rem;
   text-align: center;
-  padding: 3rem 1rem;
-  border-top: 1px solid var(--border);
-  color: var(--text-muted);
+  border-top: 1px dashed var(--primary);
+  color: rgba(255,255,255,0.6);
 }
 
-footer a { color: var(--accent); text-decoration: none; }
-
-footer a:hover { text-decoration: underline; }
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
+footer a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.modal.active { display: flex; }
-
-.modal-content {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2rem;
-  max-width: 600px;
-  width: 100%;
-  max-height: 80vh;
-  overflow-y: auto;
+footer a:hover {
+  text-decoration: underline;
 }
-
-.modal-close {
-  float: right;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: var(--text-muted);
-}
-
-.modal-close:hover { color: var(--text); }
 
 @media (max-width: 768px) {
-  header { flex-direction: column; gap: 1rem; }
-  .hero { min-height: 80vh; padding: 2rem 1rem; }
-  .section-title { font-size: 1.8rem; }
-  .pricing-card.featured { transform: scale(1); }
+  .hero { padding: 2rem 1rem; }
+  .stats { margin-top: 3rem; padding-top: 3rem; }
+  .apps-grid { gap: 1.5rem; }
 }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo"><span>ST8</span> Ecosystem</div>
-  <div class="header-right">
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="container">
-    <div class="hero-content">
-      <div class="tagline">✨ ПРЕМИУМ ПЛАТФОРМА</div>
-      <h1><span>ST8</span> Ecosystem</h1>
-      <p class="subtitle">Единая платформа AI для вашего бизнеса</p>
-      <p style="color: var(--text-muted); margin-bottom: 2rem;">Три мощных приложения для ресторана, производства и строительства</p>
-      
-      <div class="cta-buttons">
-        <button class="btn-primary" onclick="scrollTo('apps')">📱 Смотреть приложения</button>
-        <button class="btn-secondary" onclick="scrollTo('pricing')">💰 Смотреть цены</button>
-      </div>
-
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-num">150K+</div>
-          <div class="stat-label">Пользователей</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">5000+</div>
-          <div class="stat-label">Компаний</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">98%</div>
-          <div class="stat-label">Удовлетворения</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">24/7</div>
-          <div class="stat-label">Поддержка</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="carousel-section" id="apps">
-  <div class="container">
-    <h2 class="section-title">🚀 Наши приложения</h2>
-    <p class="section-desc">Выберите что нужно вашему бизнесу</p>
-    
-    <div class="carousel">
-      <div class="app-card" onclick="goTo('resto/')">
-        <div class="app-icon">🍽️</div>
-        <h3>ST8 RESTO</h3>
-        <p>AI технолог для ресторана, кафе, пекарни и корпоративного питания</p>
-        <ul class="app-features">
-          <li>ТТК и меню</li>
-          <li>Контроль фудкоста</li>
-          <li>Анализ выручки</li>
-          <li>AI отчёты</li>
-        </ul>
-        <button class="app-card-btn">Открыть →</button>
-        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
-      </div>
-
-      <div class="app-card" onclick="goTo('resto/unikfood.html')" style="border-color: var(--lime);">
-        <div class="app-icon">🟢</div>
-        <h3 style="color: var(--lime);">Unikfood</h3>
-        <p>Система для сетей и производства пищевых продуктов</p>
-        <ul class="app-features">
-          <li>Рецептуры</li>
-          <li>Производство</li>
-          <li>Стандартизация</li>
-          <li>Контроль качества</li>
-        </ul>
-        <button class="app-card-btn" style="background: var(--lime); color: #0a0a0a;">Открыть →</button>
-        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
-      </div>
-
-      <div class="app-card" onclick="goTo('stroy/')">
-        <div class="app-icon">🏗️</div>
-        <h3>СТ8 СТРОЙ</h3>
-        <p>AI помощник прораба для управления строительством</p>
-        <ul class="app-features">
-          <li>Объекты и бригады</li>
-          <li>Документы КС-6а</li>
-          <li>Контроль дефектов</li>
-          <li>Безопасность</li>
-        </ul>
-        <button class="app-card-btn">Открыть →</button>
-        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="pricing-section" id="pricing">
-  <div class="container">
-    <h2 class="section-title">💰 Тарифные планы</h2>
-    <p class="section-desc">Выберите план, который подходит вашему бизнесу</p>
-    
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="plan-name">🎁 Free</div>
-        <div class="plan-price">0<span> ₽</span></div>
-        <div class="plan-desc">Для личного использования</div>
-        <ul class="plan-features">
-          <li>1 приложение</li>
-          <li>До 100 записей</li>
-          <li>Базовые отчёты</li>
-          <li>Базовая поддержка</li>
-        </ul>
-        <button class="plan-btn">Начать</button>
-        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
-      </div>
-
-      <div class="pricing-card featured">
-        <div class="plan-name">⭐ Pro</div>
-        <div class="plan-price">4 900<span> ₽/мес</span></div>
-        <div class="plan-desc">Для малых компаний (1-10 сотр)</div>
-        <ul class="plan-features">
-          <li>Все 3 приложения</li>
-          <li>Неограниченные записи</li>
-          <li>AI генерация документов</li>
-          <li>Импорт из файлов</li>
-          <li>Приоритетная поддержка</li>
-          <li>30+ шаблонов</li>
-        </ul>
-        <button class="plan-btn">Выбрать план</button>
-        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
-      </div>
-
-      <div class="pricing-card">
-        <div class="plan-name">🏢 Enterprise</div>
-        <div class="plan-price">от 29 900<span> ₽/мес</span></div>
-        <div class="plan-desc">Для крупных компаний и сетей</div>
-        <ul class="plan-features">
-          <li>Все функции Pro</li>
-          <li>Кастомная интеграция</li>
-          <li>Выделенный аккаунт</li>
-          <li>API доступ</li>
-          <li>24/7 техподдержка</li>
-          <li>Белый лейбл</li>
-        </ul>
-        <button class="plan-btn">Написать нам</button>
-        <div class="made-by">Сделано <strong>ST8 AI</strong> © 2026</div>
-      </div>
-    </div>
-
-    <p style="text-align: center; color: var(--text-muted); margin-top: 2rem;">
-      💡 Пробный период Pro план - 7 дней бесплатно!
-    </p>
-  </div>
-</section>
-
-<section class="features-section">
-  <div class="container">
-    <h2 class="section-title">✨ Общие возможности</h2>
-    <div class="feature-grid">
-      <div class="feature-item" onclick="showFeature('📱 PWA', 'Установка как приложение на телефон или ПК. Работает как обычное приложение, полностью функционально.')">
-        <div class="feature-icon">📱</div>
-        <div class="feature-title">PWA приложения</div>
-        <div class="feature-desc">Установка на home screen</div>
-      </div>
-      <div class="feature-item" onclick="showFeature('🤖 AI', 'Генерация отчётов, документов, анализ данных через Anthropic Claude. Работает в фоне.')">
-        <div class="feature-icon">🤖</div>
-        <div class="feature-title">AI автоматизация</div>
-        <div class="feature-desc">Генерация документов</div>
-      </div>
-      <div class="feature-item" onclick="showFeature('💾 Офлайн', 'Service Worker кэширует приложение. Работает даже без интернета.')">
-        <div class="feature-icon">💾</div>
-        <div class="feature-title">Офлайн режим</div>
-        <div class="feature-desc">Работа без интернета</div>
-      </div>
-      <div class="feature-item" onclick="showFeature('🔒 Приватность', 'Все данные в браузере. На серверы ничего не отправляется.')">
-        <div class="feature-icon">🔒</div>
-        <div class="feature-title">Полная приватность</div>
-        <div class="feature-desc">Данные только у вас</div>
-      </div>
-      <div class="feature-item" onclick="showFeature('⚙️ Кастомизация', 'Полная настройка под вашу компанию: цвета, реквизиты, параметры.')">
-        <div class="feature-icon">⚙️</div>
-        <div class="feature-title">Кастомизация</div>
-        <div class="feature-desc">Под ваш бизнес</div>
-      </div>
-      <div class="feature-item" onclick="showFeature('📊 Аналитика', 'Графики выручки, метрики, отчёты, ABC-анализ и многое другое.')">
-        <div class="feature-icon">📊</div>
-        <div class="feature-title">Аналитика</div>
-        <div class="feature-desc">Графики и отчёты</div>
-      </div>
-      <div class="feature-item" onclick="showFeature('📂 Импорт', 'Загрузка из Excel, CSV. AI распознаёт структуру.')">
-        <div class="feature-icon">📂</div>
-        <div class="feature-title">Импорт данных</div>
-        <div class="feature-desc">Из файлов в секунды</div>
-      </div>
-      <div class="feature-item" onclick="showFeature('🔄 Синхронизация', 'Автосохранение в реальном времени. Данные никогда не теряются.')">
-        <div class="feature-icon">🔄</div>
-        <div class="feature-title">Синхронизация</div>
-        <div class="feature-desc">Автосохранение</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="container">
-  <div class="newsletter-section">
-    <h3>📧 Будьте в курсе новостей</h3>
-    <p>Подпишитесь на обновления ST8 Ecosystem и получайте новые фичи первыми</p>
-    <div class="newsletter-form">
-      <input type="email" placeholder="Ваша почта" id="email">
-      <button onclick="subscribe()">Подписаться</button>
-    </div>
+<!-- LOADING SCREEN -->
+<div class="loader" id="loader">
+  <div class="loader-content">
+    <div class="loader-logo">🚀</div>
+    <div class="loader-text">ST8 ECOSYSTEM</div>
+    <div class="spinner"></div>
   </div>
 </div>
 
+<!-- HEADER -->
+<header>
+  <div class="logo">ST8</div>
+  <button class="nav-btn" onclick="scrollTo('apps')">EXPLORE</button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>The <span>ST8</span> Ecosystem</h1>
+    <p>Three powerful AI applications for your business. One platform. Infinite possibilities.</p>
+    
+    <div class="cta-group">
+      <button class="btn btn-primary" onclick="scrollTo('apps')">EXPLORE APPS</button>
+      <button class="btn btn-secondary" onclick="showInfo()">LEARN MORE</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">150K+</div>
+        <div class="stat-label">Users</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5000+</div>
+        <div class="stat-label">Companies</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Satisfaction</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section class="apps-section" id="apps">
+  <h2 class="section-title">Choose Your <span>Solution</span></h2>
+  <p class="section-desc">Pick the application that powers your business</p>
+
+  <div class="apps-grid">
+    <!-- ST8 RESTO -->
+    <div class="app-card">
+      <div class="app-inner">
+        <span class="app-icon">🍽️</span>
+        <h3>ST8 RESTO</h3>
+        <p><strong>The AI chef technology for restaurants, cafes and catering.</strong></p>
+        <div class="app-desc">
+          📖 <strong>What it does:</strong> Manages menus, recipes (TTK), calculates food costs, analyzes revenue, generates AI reports. Perfect for restaurants, bakeries, dark kitchens, and corporate catering.
+        </div>
+        <ul class="app-features">
+          <li>Technology maps (TTK)</li>
+          <li>Food cost control</li>
+          <li>Revenue analytics</li>
+          <li>AI document generation</li>
+        </ul>
+        <button onclick="loadApp('resto')">Open RESTO</button>
+        <div class="made-by">Made by ST8 AI © 2026</div>
+      </div>
+    </div>
+
+    <!-- UNIKFOOD -->
+    <div class="app-card">
+      <div class="app-inner">
+        <span class="app-icon">🟢</span>
+        <h3>Unikfood</h3>
+        <p><strong>Production management for restaurant networks and food manufacturers.</strong></p>
+        <div class="app-desc">
+          📖 <strong>What it does:</strong> Standardizes recipes across locations, manages production processes, ensures quality control. For restaurant chains and food production companies.
+        </div>
+        <ul class="app-features">
+          <li>Recipe standardization</li>
+          <li>Production workflows</li>
+          <li>Quality control</li>
+          <li>Multi-location sync</li>
+        </ul>
+        <button onclick="loadApp('unikfood')">Open Unikfood</button>
+        <div class="made-by">Made by ST8 AI © 2026</div>
+      </div>
+    </div>
+
+    <!-- СТ8 СТРОЙ -->
+    <div class="app-card">
+      <div class="app-inner">
+        <span class="app-icon">🏗️</span>
+        <h3>СТ8 СТРОЙ</h3>
+        <p><strong>AI foreman assistant for construction management.</strong></p>
+        <div class="app-desc">
+          📖 <strong>What it does:</strong> Manages construction sites, tracks brigades, generates documents (KS-6a, acts, permits), logs defects and safety. All documents automated by AI.
+        </div>
+        <ul class="app-features">
+          <li>Site management</li>
+          <li>Brigade tracking</li>
+          <li>Document automation</li>
+          <li>Safety logs</li>
+        </ul>
+        <button onclick="loadApp('stroy')">Open STROY</button>
+        <div class="made-by">Made by ST8 AI © 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <p style="margin-bottom: 1rem;">
-    <strong>ST8 Ecosystem</strong> © 2026 | Сделано <strong>ST8 AI</strong>
-  </p>
   <p>
+    <strong>ST8 Ecosystem</strong> © 2026 | Built by <strong>ST8 AI</strong>
+  </p>
+  <p style="margin-top: 1rem;">
     <a href="https://st8-ai.ru" target="_blank">🌐 st8-ai.ru</a> | 
     <a href="mailto:hello@st8-ai.ru">📧 hello@st8-ai.ru</a>
   </p>
-  <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
-    Powered by Anthropic Claude | Индиго #6366F1 | <strong>Сделано ST8 AI © 2026</strong>
+  <p style="margin-top: 1rem; font-size: 0.9rem;">
+    Powered by Anthropic Claude | Made with ❤️ in 2026
   </p>
 </footer>
 
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="modal-close" onclick="closeModal()">✕</span>
-    <h2 id="modal-title" style="margin-bottom: 1rem; color: var(--accent);"></h2>
-    <div id="modal-text"></div>
-  </div>
-</div>
-
 <script>
-function toggleTheme() {
-  document.body.classList.toggle('light-mode');
-  const isDark = !document.body.classList.contains('light-mode');
-  localStorage.setItem('st8-theme', isDark ? 'dark' : 'light');
-  updateThemeButton();
-}
-
-function updateThemeButton() {
-  const btn = document.querySelector('.theme-toggle');
-  const isDark = !document.body.classList.contains('light-mode');
-  btn.textContent = isDark ? '☀️' : '🌙';
-}
-
-if (localStorage.getItem('st8-theme') === 'light') {
-  document.body.classList.add('light-mode');
-}
-updateThemeButton();
-
-function showFeature(title, text) {
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-text').innerHTML = '<p style="font-size: 1rem; line-height: 1.6; color: var(--text);">' + text + '</p>';
-  document.getElementById('modal').classList.add('active');
-}
-
-function closeModal() {
-  document.getElementById('modal').classList.remove('active');
-}
-
-document.getElementById('modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
+// LOADER
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 2000);
 });
 
-function goTo(path) {
-  window.location.href = path;
-}
-
+// SCROLL
 function scrollTo(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
-function subscribe() {
-  const email = document.getElementById('email').value;
-  if (email) {
-    alert('✅ Спасибо за подписку! Проверьте почту.');
-    document.getElementById('email').value = '';
-  } else {
-    alert('⚠️ Введите почту');
-  }
+// LOAD APP
+function loadApp(app) {
+  document.getElementById('loader').classList.remove('hidden');
+  setTimeout(() => {
+    if (app === 'resto') {
+      window.location.href = './resto/';
+    } else if (app === 'unikfood') {
+      window.location.href = './resto/unikfood.html';
+    } else if (app === 'stroy') {
+      window.location.href = './stroy/';
+    }
+  }, 1000);
+}
+
+function showInfo() {
+  alert('🚀 ST8 Ecosystem - Three powerful AI applications:\n\n🍽️ RESTO - For restaurants & catering\n🟢 Unikfood - For food production\n🏗️ СТРОЙ - For construction\n\nEach app has AI automation, offline mode, and mobile PWA support.');
 }
 </script>
 </body>
